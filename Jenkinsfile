@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        KUBE_CONFIG = credentials('kubernetes-config-file-id')
         APP_NAME = 'tlab'
         DOCKER_REGISTRY = 'your-docker-hub-username'
         DOCKER_IMAGE_TAG = 'latest'

@@ -21,9 +21,9 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG} -f results-app/Dockerfile"
-                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG} -f vote-worker/Dockerfile"
-                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG} -f web-vote-app/Dockerfile"
+                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG} -f results-app/Dockerfile ."
+                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG} -f vote-worker/Dockerfile ."
+                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG} -f web-vote-app/Dockerfile ."
                 }
             }
         }

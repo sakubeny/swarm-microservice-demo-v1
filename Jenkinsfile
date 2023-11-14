@@ -22,7 +22,9 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}:${DOCKER_IMAGE_TAG} ."
+                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG} -f results-app/Dockerfile"
+                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG} -f vote-worker/Dockerfile"
+                    sh "docker build -t ${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG} -f web-vote-app/Dockerfile"
                 }
             }
         }
@@ -31,7 +33,9 @@ pipeline {
             steps {
                 script {
                     // Push Docker image to Docker Hub
-                    sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}:${DOCKER_IMAGE_TAG}"
+                    sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG}"
+                    sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG}"
+                    sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG}"
                 }
             }
         }

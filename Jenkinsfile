@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = 'tlab'
-        DOCKER_REGISTRY = 'your-docker-hub-username'
+        DOCKER_REGISTRY = 'sakubeny'
         DOCKER_IMAGE_TAG = 'latest'
     }
 

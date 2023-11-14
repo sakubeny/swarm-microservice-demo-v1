@@ -1,6 +1,6 @@
-FROM openjdk:7
+FROM jamesdbloom/docker-java7-maven
 
-RUN apt-get update -qq && apt-get install -y maven && apt-get clean
+#RUN apt-get update -qq && apt-get install -y maven && apt-get clean
 
 WORKDIR /code
 

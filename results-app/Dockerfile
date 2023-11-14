@@ -3,11 +3,11 @@ FROM node:0.10
 RUN mkdir /app
 WORKDIR /app
 
-ADD result-app/package.json /app/package.json
+ADD results-app/package.json /app/package.json
 RUN npm install && npm ls
 RUN mv /app/node_modules /node_modules
 
-ADD result-app/ /app
+ADD results-app/ /app/
 
 ENV PORT 80
 EXPOSE 80

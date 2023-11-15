@@ -47,11 +47,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // Configure kubectl with Kubernetes credentials
-                    withCredentials([file(credentialsId: 'kubernetes-config-file-id', variable: 'KUBE_CONFIG')]) {
-                        sh "echo \"${KUBE_CONFIG}\" > kubeconfig"
-                    }
-                    sh "kubectl config use-context your-kubernetes-context"
+
+                    sh "kubectl config set-context --current --namespace=tlab"
 
                     // Update Kubernetes Deployment with the new Docker image
                     sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG}"

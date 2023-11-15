@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tlab-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tlab-web
+  template:
+    metadata:
+      labels:
+        app: tlab-web
+    spec:
+      containers:
+      - name: tlab-web
+        image: sakubeny/tlab-web:latest
+        envFrom:
+        - configMapRef:
+            name: vote-app-config

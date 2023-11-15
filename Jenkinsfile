@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        DOCKER_HUB_CREDENTIALS = credentials('Docker_Hub')
         APP_NAME = 'tlab'
         DOCKER_REGISTRY = 'sakubeny'
         DOCKER_IMAGE_TAG = 'latest'
@@ -31,6 +32,10 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
+                    // Log in to Docker Hub
+                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                    }
                     // Push Docker image to Docker Hub
                     sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG}"
                     sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG}"
@@ -49,7 +54,9 @@ pipeline {
                     sh "kubectl config use-context your-kubernetes-context"
 
                     // Update Kubernetes Deployment with the new Docker image
-                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}:${DOCKER_IMAGE_TAG}"
+                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG}"
+                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG}"
+                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG}"
                 }
             }
         }

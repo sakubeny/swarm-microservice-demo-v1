@@ -51,9 +51,9 @@ pipeline {
                     sh "kubectl config use-context tlab"
 
                     // Update Kubernetes Deployment with the new Docker image
-                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG} -n tlab"
-                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG} -n tlab"
-                    sh "kubectl set image deployment/${APP_NAME} ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG} -n tlab"
+                    sh "kubectl set image deployment/tlab-result ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-result:${DOCKER_IMAGE_TAG} -n tlab"
+                    sh "kubectl set image deployment/tlab-vote ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-vote:${DOCKER_IMAGE_TAG} -n tlab"
+                    sh "kubectl set image deployment/llab-web ${APP_NAME}=${DOCKER_REGISTRY}/${APP_NAME}-web:${DOCKER_IMAGE_TAG} -n tlab"
                 }
             }
         }
